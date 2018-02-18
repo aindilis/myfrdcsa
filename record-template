@@ -1,0 +1,42 @@
+# this is a fake template for the package information:
+
+Meetings
+Projects
+Packages
+External Applications
+Internal Applications
+
+<subdir packages>
+<feature "Most Wanted Packages" status="In-Progress">
+Most Wanted Packages
+Packages in Progress
+Package Stream
+Completed Packages
+</subdir>
+
+<most-wanted-packages>
+The Most Wanted Packages are automatically computed from FRDCSA goals.
+
+<most-wanted-template>
+Download Source Code
+View documentation at <a href="">(w3m-browse-url "")</a>
+
+
+<packages-in-progress>
+All | Ordered By : Completeness | Substance
+(completeness is measured by percentage of release goals that have been met)
+The packages
+
+(thought "ajd" "Mon Jan 19 11:36:39 EST 2004"
+	"Most needed packages are computed from goals and ")
+
+Completed Packages | Most Needed Packages | Prepackaged  Archives | Uncategorized
+Prepackaged Archives | In-House Packages
+
+
+Now, we want to be able to have a generalized interface where we are capable of 
+recording things like:
+
+I want to have a subdir called package dir.
+I want to create a project for planning based on OO perl.
+I need to convert the features system to an possibly xml-based, kqml, daml etc. based system.

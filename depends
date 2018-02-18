@@ -1,0 +1,8 @@
+# this file  details package dependencies required  to perform certain
+# functionality
+
+packaging:
+
+binutils  cpp cpio  dpkg-dev  file gcc  make  patch dh-make  debhelper
+devscripts fakeroot  lintian debian-policy developers-reference man-db
+manpages reportbug

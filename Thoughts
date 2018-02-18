@@ -1,0 +1,217 @@
+(add things like  KB of what functions can be  performed on a document
+type, for instance: can use it to create definitions, can mark it as a
+metasite (if it is or was a URL))
+
+(a  feature  we want  is  that  MyFRDCSA  highlights any  changes  for
+supervisors  to see -  automatically adds  this information  to things
+like project management and planning software.)
+
+(monitor which project files have  been read in emacs, so simply write
+a bunch of hooks!)
+
+(autoproject is similar to the project creation with templates.)
+
+(assertain the programs usage and user base)
+
+(two extremely useful concepts are:
+	(use the google program guides to recursively track good software)
+	(search for expert system software download site:edu))
+
+(convert radar jump to program to work like iswitchb)
+
+(the problem with Cyc is that it is not a total collection of existing
+ontologies.  they have stripped it down to be pretty useless.)
+
+(should  make  small packages  that  can be  run  to  create a  debian
+package)
+
+(need a central documentation system, I guess this is related somewhat
+to the manual reading aspects of clairvoyance)
+
+(figure out how to write perl programs so that I can do things like:
+`myfrdcsa new project`)
+
+(what  needs to  be  worked  out is  the  archive structure,  because,
+debs/prog  is clearly  nonsense, debs  should be  reserved  for debian
+packages,  and not  even source  archives.  in  addition,  the various
+stages of the pipeline must be determined.)
+
+(should convert the items needed to an ontology)
+
+(have ability to dump contents of a microtheory and use version control on it)
+
+(be able to add that to the desired capabilities for a given project like:
+ (desiredCapability OpencycCommonApplication CanDumpContentsOfMicrotheory))
+
+(come up  with appropriate term  for (locally developed),  (in house),
+etc (internal codebase))
+
+(The  goal  of FRDCSA  is  to  implement a  system  which  is able  to
+understand the  goals of  a user through  dialog and  interaction, and
+construct plans to satisfy these goals.)
+
+(get xml working for control file syntax (already))
+
+(There has been a lot of difficulty determining what is supposed to do
+what, although I can clearly see the overall flow.
+for instance, lets develop an API for it. figure out some way to diagram the process.x
+
+(
+(?thing-classify-object
+	(thing-classify-web-site)
+	(thing-classify-file))
+(thing-current-package-completed
+	(runs thing-check-in-current-package))
+))
+
+(The desire  to collect software is  related to the desire  to map out
+the functions of  software, and try to describe what  they do, to make
+perfectly  sure of  whether or  not something  has  been accomplished.
+Now, to be sure, whether  two given program segments are equivalent is
+certainly homotopy)
+
+(need to set up cvs-buildpackage among others.)
+
+(wanted to set  up documentation standards that are  properly read and
+indexed, like for Perl)
+
+(re set up audio recording (meeting))
+(jump to entity at point)
+(some things that are stacking in my head
+	(package alembic, cyc)
+	(fix upgrade-project scripts to populate correct)
+	(make jump-to-documentation feature)
+	(make a todo list)
+	(carefully design emacs path structure for dual use system
+		(realize that projects are not going to be install and hence are different from packages.))
+	(centralize reestablish emacs load structure)
+	(centralize path loading)
+	(make registry of all important systems using cyc, and allow restructuring that way)
+	(expand pse using opencyc-el))
+
+(http://www.nsf.gov/home/grants/gc102.pdf
+
+37. a.  Sharing  of Findings, Data,  and Other Research  Products NSF
+expects significant findings from research and education activities it
+supports  to be  promptly submitted  for publication,  with authorship
+that  accurately  reflects the  contributions  of  those involved.  It
+expects investigators to share with other researchers, at no more than
+incremental  cost and  within a  reasonable time,  the  data, samples,
+physical  collections  and   other  supporting  materials  created  or
+gathered in  the course  of the work.  It also encourages  awardees to
+share software and inventions or otherwise act to make the innovations
+they  embody  widely useful  and  usable.  
+
+b.   Adjustments and, where  essential, exceptions  may be  allowed to
+safeguard  the rights  of individuals  and subjects,  the  validity of
+results, or the integrity  of collections or to accommodate legitimate
+interests of investigators.)
+
+(Would   be   neat   to   come  up   with   an   information-theoretic
+metamathematical visualization of software conglomeration)
+
+(What is the heiarchy like?)
+
+(trust metrics)
+
+(until  there is  a  steady stream  of  packages, we  should write  it
+ourselves, hence  writing the system  to gather the resources  to then
+modularly replace parts of the system.)
+
+(make a system for planning that  is written in OO perl w/ possibly an
+interface to cyc, and for instance  which can be used to generate most
+wanted  packages  on  the  basis  of calculated  significance  in  the
+planning phase.)
+
+(have a  section for  most needed packages)
+(Obviously prog  does not belong in debs)
+
+(I need to formalize this hierarchy.)
+(I  think  obviously   it  is  nonsense  to  operate   it  in  multiple
+subdirectories.)
+
+(Here are some  major distinctions to be modelled when  we have Cyc or
+Powerloom working.)
+
+(Is it  external or internal?  i.e. are  we writing it our  is it being
+acquired.  if it is internal, is it prealpha, alpha, beta, or stable?)
+
+(Note that sourceforge/gforce  may or may not be  useful here.  Because
+we want  the flexibility  to be constantly  changing the  packages.  I
+suppose we shall have to see.)
+
+(How do we define packages and projects.)
+
+(genlsPred ImmediateSubproject Subproject)
+(implies
+	(and
+		(Subproject ?P ?Q)
+		(Subproject ?Q ?R))
+	(Subproject ?P ?R))
+
+(genls ExternalProject Project)
+(genls InternalProject Project)
+(mutallyExclusive ExternalProject InternalProject)
+
+
+
+(A capability 
+(What is its relation to other packages?)
+(What is its perceived relative importance?))
+
+(Let us list out the definitions of the various systems.)
+
+(defsys FRDCSA
+	"Formalized Research  Database, Cluster, Study  and Apply" Now
+does this  refer to a  specific instance of  such a database,  does it
+refer to a  project, of which a particular version  could be called an
+FRDCSA?  So I  would like to think  that it is a class  of systems, of
+which  we   could  have  a  particular  implementation.    How  do  we
+distinguish between  a project and  copies of that project  on various
+computers,  called copies  and  sometimes installations  of an  FRDCSA
+called "it is a formalized research database".)
+
+(implementation-of FRDCSA)
+(installation-of (implementation-of FRDCSA))
+(product-of (implementation-of FRDCSA))
+(package-for (product-of (implementation-of FRDCSA)))
+(package-of (files-for (implementation-of FRDCSA)))
+(project-website-for (implementation-of FRDCSA))
+
+(MyFRDCSA := (projectname-of (implementation-of FRDCSA)))
+
+(MyFRDCSA-dev := (ide-for (implementation-of FRDCSA))(naturally we write our systems (for now) in prog and then make packages in inc))
+
+(Must have the ability to match existing proprietary systems to free replacements.)
+(must distinguish between proposed systems and existing ones)
+
+(must manage bloat of thoughts file somehow)
+
+(capabilities matcher.
+	(a-match: cmu)
+	(phosphorus: isi))
+(need to have a memcon system)
+(propose-system "Objectives Satisfaction Evaluation and Policy Change"
+	"A  system  to  expedite  quick  recovery from mistakes  and  implement  
+	new  policies  to prevent  current  mistakes,  hence, a  logic learning
+	system.")
+
+(system that I am developing to account for mistakes is really damn useful
+	(a reflective approach to fix what is wrong)
+	(must find this system or write it, add it to the existing systems)
+	(makes sense to go with an expert system or similar API to edit a policy,
+		with procedures programmed in to handle the actual actions of the
+		executive committee.))   
+
+(must have  the capability to  track which existing systems  are being
+used, and how systems relate to each other, in terms of which features
+of which systems are necessary for which features of other systems
+(ontological engineering regarding software systems/packages))
+
+(searches for systems: docbook, nomic, expert system, production rules, fault/failure analysis,)
+
+(propose-system "Passworld"
+	"The goal of this system is to provide enterprise-wide password management by 
+	having a physically secured offline central password server, which users 
+	approach to retrieve passwords, and which actively attempts to break bad
+	passwords")

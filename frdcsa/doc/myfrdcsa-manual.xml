@@ -1,0 +1,398 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"file:///usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+]>
+<book>
+  <title>
+    MyFRDCSA: Application Traffic Controller
+  </title>
+  <bookinfo>
+    <author>
+      <firstname>Andrew</firstname>
+      <surname>Dougherty</surname>
+    </author>
+  </bookinfo>
+  <toc>
+  </toc>
+  <chapter>
+    <title>What is MyFRDCSA?</title>
+    <sect1 id="overview">
+      <title>
+	Overview
+      </title>
+      <para>
+	MyFRDCSA is  a complete problem solving  environment which can
+	be distributed  to form a  network of interacting  peers.  The
+	aim of MyFRDCSA is to integrate various technologies to become
+	a  central education,  communications and  intelligence system
+	for multiple users.
+      </para>
+      <para>
+	MyFRDCSA is a temporary name  for a project which implements a
+	kind of database  called an FRDCSA.  Its chief  function is to
+	interface  to   various  application  sources,   like  locally
+	developed  software,   upstream  sources,  existing  packages,
+	special archives like perlmod, and  so on, and to interface to
+	version control, backup, metadata fileservers effectively, and
+	ultimately handle the debianization  of all systems.  It could
+	be thought of as a  package tracker, or an Application Traffic
+	Controller, or as an integrator.
+      </para>
+    </sect1>
+  </chapter>
+  <chapter>
+    <title>
+      Ontology of Software System Distribution States
+    </title>
+    <sect1>
+      <title>
+	Types
+      </title>
+      <para>
+	There  are several  different types  of software  systems that
+	MyFRDCSA has to  deal with effectively.  At this  time Thu Jan
+	29 21:47:19 EST 2004,  there are: {locally developed software,
+	existing debian packages,  other system packages, and upstream
+	software} Of  upstream software, we would  like to distinguish
+	based on license type.  We  figure, if we've found the system,
+	and if  it checks  out as being  worthwhile, we would  like to
+	make  its  functionality  available.   If  it is  able  to  be
+	packaged  for  Debian  immediately,  great.   If  it  contains
+	licensing  problems we  will  research these  and contact  the
+	appropriate groups  to determine  if they can  relicense their
+	software  to be  free.  If  it cannot  be relicensed,  we will
+	engage  in a  legal  method  of attempting  to  create a  free
+	version   of  it,   where   possible.   If   it  is   licensed
+	restrictively, we will probably keep it on record but will not
+	redistribute it.  We  will attempt if possible to  apply it to
+	the cause of free software,  a necessary evil.  But of course,
+	we will always  try to follow the policy  that has made Debian
+	among the purest and most capable systems available.
+      </para>
+      <sect2>
+	<title>
+	  Upstream Software
+	</title>
+	<para>
+	  Upstream software  and locally developed  software must both
+	  be  made  into   Debian  packages.   Therefore,  the  actual
+	  machinery that makes these  ought to be treated differently.
+	  Therefore  RADAR primarily  handles  upstream software,  and
+	  whatever else handles locally developed software.
+	</para>
+	<para>
+	  For  both  of  these,   pbuilder  is  used  to  control  the
+	  environment.
+	</para>
+      </sect2>
+      <sect2>
+	<title>
+	  Midstream Software
+	</title>
+	<para>
+	  Locally  developed  software is  treated  no different  than
+	  upstream software, except  that the environment for creating
+	  it is provided.  Currently this  is one we have written, and
+	  we  are in  the  process of  modelling  the semantics  using
+	  OpenCyc.  However, since an object oriented model might also
+	  apply, I  might try  learning and using  UML for  this task.
+	  The  Debian  package  Gforge  is another  environment  which
+	  integrates  project management effectively.   We are  in the
+	  process of testing this to see whether it is suitable to our
+	  needs.
+	</para>
+      </sect2>
+      <sect2>
+	<title>
+	  Existing Debian Packages
+	</title>
+	<para>
+	  These  do not  need to  be packaged,  however, they  must be
+	  stored.  Work is ongoing.
+	</para>
+      </sect2>
+    </sect1>
+  </chapter>
+  <chapter>
+    <title>
+      MyFRDCSA Structure
+    </title>
+    <sect1>
+      <title>
+	Description
+      </title>
+      <para>
+	The MyFRDCSA, as it is currently called, is the hub of package
+	creation.   It also handles  related functions.   This section
+	will illustrate how it works.
+      </para>
+      <para>
+	The  RADAR  system is  used  to  locate  and monitor  upstream
+	sources.  The Debian Gforge  package is installed and used for
+	locally  developed sources, and  it makes  some sense  that we
+	simply apply RADAR to these sources, and treat them equivalent
+	to  upstream  sources.   The  interface to  existing  packages
+	involves  RADAR,  and  again  it applies  to  RADAR  somewhat,
+	because RADAR  may find Debian packages.   However, there will
+	be special  functionality for reasoning about  the totality of
+	Debian packages  and their states of development  which is not
+	specific to RADAR.  This functionality is most likely produced
+	by either MyFRDCSA or another  system whose sole purpose is to
+	monitor  the state  of  packages.  Having  RADAR have  special
+	purpose modules for upstream sources, like apt-get.org, may or
+	may  not be useful.   I am  more inclined  to write  a special
+	package  which  is basically  a  knowledge  based system  that
+	tracks all information regarding apt-get sources on the web.
+      </para>
+      <sect2>
+	<title>
+	  Tracking Apt-Get Sources
+	</title>
+	<para>
+	  While perhaps  this should  be considered technically  to be
+	  part of RADAR, there should be functionality that tracks the
+	  apt-get  sources.  Specifically  it  provides the  following
+	  features.
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+		Crawling  the  web  and  receiving  hints  from  other
+		crawlers about online apt-get sources.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		Caching  of  contents of  online  apt-get sources  and
+		Packages files.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		A  scheme   to  retrieve  and  send   to  the  package
+		repository packages  that meet a  certain chriteria or
+		threshhold  of usefulness.   Retrieval and  storage of
+		online packages to  create a central package database.
+		Certain  optimizations apply which  allow it  to prune
+		itself over time.  Perhaps  it can have the ability to
+		drop items from the cache which have not been used, or
+		another idea  would be to  index the packages  using a
+		relative compression scheme, that is, to hash files to
+		their md5  sum and length, and  then determine whether
+		packages have  the same copy  of a specific  file, and
+		then  use this to  create a  smaller package  based on
+		object oriented data storage,  and then compress it as
+		well.
+	      </para>
+	    </listitem>
+	  </itemizedlist>
+	</para>
+      </sect2>
+      <sect2>
+	<title>
+	  Package Creation
+	</title>
+	<para>
+	  Package creation  is a  very important part  of what  we do.
+	  Note  that  it  is  a  separate task  from  upstream  source
+	  location  or even  package  storage.  The  point of  package
+	  creation  is to, as  rapidly as  possible, take  an upstream
+	  source and turn it into a debian package or similar.
+	</para>
+	<para>
+	  Luckily there are no  end of Debian tools, already packaged,
+	  which  very effectively aid  in this  process.  But  here we
+	  will talk about how to do this.
+	</para>
+	<para>
+	  During package  creation, the state  of the package  will be
+	  monitored using CVS.  There are  a few assistants to CVS for
+	  these purposes.
+
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+		cvs-autoreleasedeb - Automatically release/upload debian packages from CVS
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		cvs-buildpackage - A set of Debian package scripts for CVS source trees.
+	      </para>
+	    </listitem>
+	  </itemizedlist>
+
+	  or alternatively,
+	  
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+		svn-buildpackage - helper programs to maintain Debian packages with Subversion
+	      </para>
+	    </listitem>
+	  </itemizedlist>
+
+	  In  addition, packages  will be  built and  tested  with the
+	  likes of pbuilder.
+
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+		devscripts-el - Emacs wrappers for the commands in devscripts
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		pbuilder - personal package builder for Debian packages
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		pbuilder-uml - user-mode-linux version of pbuilder
+	      </para>
+	    </listitem>
+	  </itemizedlist>
+	</para>
+      </sect2>
+      <sect2>
+	<title>
+	  Package Maintainence
+	</title>
+	<para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+		debian-el - Emacs helpers specific to Debian users
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		dpkg-dev-el - Emacs helpers specific to Debian development
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		devscripts-el - Emacs wrappers for the commands in devscripts
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		debget - download/compile source and binary Debian packages
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		devscripts - Scripts to make the life of a Debian Package maintainer easier
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		svn-buildpackage - helper programs to maintain Debian packages with Subversion
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		svn-devscripts - Dummy package for upgrade purposes only
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		debbugs - The bug tracking system based on the active Debian BTS
+	      </para>
+	    </listitem>
+	  </itemizedlist>
+	</para>
+      </sect2>
+      <sect2>
+	<title>
+	  Package Storage
+	</title>
+	<para>
+	  Package  storage should  be  done in  a  very large  central
+	  package  repository,  but  some  care  should  be  taken  to
+	  effectively  distinguish various  package  states.  Normally
+	  package state  is handled by bug tracking.   Bug tracking is
+	  necessary to communicate, but I would also like to develop a
+	  central ontology of package states to aid in categorization.
+	</para>
+	<para>
+	  There  are  many  existing  tools  that  deal  with  package
+	  storage.
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+		dput - Debian package upload tool
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		mini-dinstall - daemon for updating Debian packages in a repository
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		apt-proxy - Debian archive proxy and partial mirror builder
+	      </para>
+	    </listitem>
+	  </itemizedlist>
+	</para>
+      </sect2>
+      <sect2>
+	<title>
+	  Package Querying
+	</title>
+	<para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+		In addition  to existing functionality,  here are some
+		ideas for useful package search features.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		Incorporate some of the relations embodied in the SubL
+		API to create package relation queries.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		Expand  iasearch which  uses libbow,  solve  bugs with
+		iasearch.   dpkg-iasearch  -   An  interface  to  find
+		relevant packages in Debian.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		Apply other  search tools  like lemur, inquery  and so
+		forth.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		BE able to generate a list of words that are contained
+		between multiple packages.
+	      </para>
+	    </listitem>
+	  </itemizedlist>
+	</para>
+      </sect2>
+    </sect1>
+  </chapter>
+  <chapter>
+    <title>
+      References
+    </title>
+    <sect1>
+      <title>
+	Overview
+      </title>
+      <para>
+	<ulink url="http://csdl.ics.hawaii.edu/FAQ/Lisp/lisp-object-orientation.html">
+	  Object Oriented Emacs Lisp
+	</ulink>
+      </para>
+    </sect1>
+  </chapter>
+</book>
+

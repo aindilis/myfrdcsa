@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"file:///usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+]>
+
+<book>
+  <project>
+    <title>
+      myfrdcsa
+    </title>
+    <essential>
+      cvs-buildpackage
+      debnest
+      devscripts
+    </essential>
+  </project>
+
+  <trial>
+    dist
+    
+  </trial>
+</trellis>

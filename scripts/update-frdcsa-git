@@ -1,0 +1,94 @@
+#!/usr/bin/perl -w
+
+use BOSS::Config;
+use Manager::Dialog qw(Approve);
+
+use Data::Dumper;
+
+$specification = q(
+	-l		Print last update time, and which items were updated.
+);
+
+my $config =
+  BOSS::Config->new
+  (Spec => $specification);
+my $conf = $config->CLIConfig;
+
+if ($conf->{'-l'}) {
+  print "Not yet implemented\n";
+  die;
+}
+
+# perhaps add some Expect automation to this process, or integrate
+# with Setanta-Agent
+
+
+
+if (-f "/var/lib/myfrdcsa/codebases/Makefile") {
+  if (Approve("Run system wide pre-sync tests?")) {
+    Do(
+       Command => "cd /var/lib/myfrdcsa/codebases && make test",
+       DontPrompt => 1,
+      );
+  }
+}
+
+Update
+  (
+   "/var/lib/myfrdcsa/codebases/releases",
+   "/var/lib/myfrdcsa/codebases/minor",
+   "/var/lib/myfrdcsa/codebases/minor/fcms/FCMS",
+   "/home/andrewdo/.myconfig",
+   "/home/andrewdo/Media/projects",
+   "/var/lib/myfrdcsa/capabilities",
+   "/var/lib/myfrdcsa/collections",
+   "/var/lib/myfrdcsas/versions/myfrdcsa-1.1",
+   "/var/lib/myfrdcsa/codebases/work",
+   # "/var/lib/myfrdcsa/codebases/internal/freekbs2/data-git/MyKBs",
+
+   # FIXME: update ai.frdcsa.org:{/s3/minor-data,/media/andrewdo/backup/minor-data}
+   # FIXME: update justin:/media/New\ Volume
+  );
+
+print "Here I should: go ahead and try to find any modules which we may need to install (just look at files that have been created or changed)\n";
+
+if (-f "/var/lib/myfrdcsa/codebases/Makefile") {
+  if (Approve("Run system wide post-sync tests?")) {
+    Do(
+       Command => "cd /var/lib/myfrdcsa/codebases && make test",
+       DontPrompt => 1,
+      );
+  }
+}
+
+
+sub Update {
+  foreach my $dir (@_) {
+    if (! -d $dir) {
+      print "Skipping nonexistent dir $dir\n";
+      next;
+    }
+    if (Approve("update this dir: $dir?")) {
+      print "chdir $dir\n";
+      chdir $dir;
+      Do(
+	 Command => "git add .",
+	 DontPrompt => 1,
+	);
+      Do(Command => "git commit .");
+      Do(Command => "git pull");
+      Do(Command => "git push");
+    }
+  }
+}
+
+sub Do {
+  my %args = @_;
+  my $c = $args{Command};
+  if (! $args{DontPrompt} and ! Approve("Continue?")) {
+    exit(0);
+  }
+  print "$c\n";
+  system $c;
+}
+

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://excalibur.isi.edu:8888/newTrellis" xmlns="http://excalibur.isi.edu:8888/newTrellis" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="trellis">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="purpose"/>
+				<xsd:element ref="conclusion" minOccurs="0"/>
+				<xsd:element ref="statements" minOccurs="0"/>
+				<xsd:element ref="sources" minOccurs="0"/>
+				<xsd:element ref="units" minOccurs="0"/>
+			</xsd:all>
+			<xsd:attribute name="version" type="xsd:string" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="purpose" type="xsd:string"/>
+	<xsd:element name="conclusion" type="xsd:string"/>
+	<xsd:element name="statements">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="statement" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="statement">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="title"/>
+				<xsd:element ref="source_id" minOccurs="0"/>
+				<xsd:element ref="selectedtext" minOccurs="0"/>
+				<xsd:element ref="notes" minOccurs="0"/>
+			</xsd:all>
+			<xsd:attribute name="ID" type="xsd:string" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="sources">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="source" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="source">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="title"/>
+				<xsd:element ref="url"/>
+				<xsd:element ref="cachedurl" minOccurs="0"/>
+				<xsd:element ref="cachedflag"/>
+				<xsd:element ref="metadata" minOccurs="0"/>
+			</xsd:all>
+			<xsd:attribute name="ID" type="xsd:string" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="title" type="xsd:string"/>
+	<xsd:element name="url" type="xsd:anyURI"/>
+	<xsd:element name="cachedurl" type="xsd:anyURI"/>
+	<xsd:element name="cachedflag" type="xsd:boolean"/>
+	<xsd:element name="metadata">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="creator" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="subject" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="description" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="publisher" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="contributor" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+				<xsd:element name="type" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="format" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="identifier" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="source" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="language" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="coverage" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="rights" type="xsd:string" minOccurs="0"/>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="source_id" type="xsd:string"/>
+	<xsd:element name="selectedtext">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="li" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="notes" type="xsd:string"/>
+	<xsd:element name="li" type="xsd:string"/>
+	<xsd:element name="statement_id" type="xsd:string"/>
+	<xsd:element name="qualifier">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:enumeration value="is definitely true"/>
+				<xsd:enumeration value="is definitely not true"/>
+				<xsd:enumeration value="is definitely false"/>
+				<xsd:enumeration value="is definitely not false"/>
+				<xsd:enumeration value="is probably true"/>
+				<xsd:enumeration value="is probably not true"/>
+				<xsd:enumeration value="is probably false"/>
+				<xsd:enumeration value="is probably not false"/>
+				<xsd:enumeration value="may be true"/>
+				<xsd:enumeration value="may not be true"/>
+				<xsd:enumeration value="may be false"/>
+				<xsd:enumeration value="may not be false"/>
+				<xsd:enumeration value="is likely"/>
+				<xsd:enumeration value="is not likely"/>
+				<xsd:enumeration value="is impossible"/>
+				<xsd:enumeration value="is not impossible"/>
+				<xsd:enumeration value="is surprising"/>
+				<xsd:enumeration value="is not surprising"/>
+				<xsd:enumeration value="is shocking"/>
+				<xsd:enumeration value="is not shocking"/>
+				<xsd:enumeration value="is reassuring"/>
+				<xsd:enumeration value="is not reassuring"/>
+				<xsd:enumeration value="is believable"/>
+				<xsd:enumeration value="is not believable"/>
+				<xsd:enumeration value="is absurd"/>
+				<xsd:enumeration value="is not absurd"/>
+				<xsd:enumeration value="is accurate"/>
+				<xsd:enumeration value="is not accurate"/>
+				<xsd:enumeration value="is dismissable"/>
+				<xsd:enumeration value="is not dismissable"/>
+				<xsd:enumeration value="is salient"/>
+				<xsd:enumeration value="is not salient"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="left_statements">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="statement_id" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="right_statements">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="statement_id" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="relation">
+		<xsd:simpleType>
+			<xsd:union>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="stands though contradicted by"/>
+						<xsd:enumeration value="provides background for"/>
+						<xsd:enumeration value="is elaborated in"/>
+						<xsd:enumeration value="is a set whose members are"/>
+						<xsd:enumeration value="is a set among whose members are"/>
+						<xsd:enumeration value="has instances such as"/>
+						<xsd:enumeration value="has instances"/>
+						<xsd:enumeration value="has parts"/>
+						<xsd:enumeration value="has parts such as"/>
+						<xsd:enumeration value="has substeps"/>
+						<xsd:enumeration value="has substeps such as"/>
+						<xsd:enumeration value="has attributes"/>
+						<xsd:enumeration value="has attributes such as"/>
+						<xsd:enumeration value="is solved by"/>
+						<xsd:enumeration value="shows how to do"/>
+						<xsd:enumeration value="is motivation for"/>
+						<xsd:enumeration value="depends on"/>
+						<xsd:enumeration value="otherwise"/>
+						<xsd:enumeration value="causes"/>
+						<xsd:enumeration value="results in"/>
+						<xsd:enumeration value="is a condition for"/>
+						<xsd:enumeration value="Choosing resulted in"/>
+						<xsd:enumeration value="happened and resulted in"/>
+						<xsd:enumeration value="is purpose of"/>
+						<xsd:enumeration value="is purpose of"/>
+						<xsd:enumeration value="stands though contradicted by"/>
+						<xsd:enumeration value="conceding"/>
+						<xsd:enumeration value="can be interpreted through"/>
+						<xsd:enumeration value="causes choice of"/>
+						<xsd:enumeration value="resulted in"/>
+						<xsd:enumeration value="evaluated by"/>
+						<xsd:enumeration value="restates"/>
+						<xsd:enumeration value="summarizes"/>
+						<xsd:enumeration value="in contrast with"/>
+						<xsd:enumeration value="is related to"/>
+						<xsd:enumeration value="has no relation to"/>
+						<xsd:enumeration value="is dismissable"/>
+						<xsd:enumeration value="Not"/>
+						<xsd:enumeration value="and"/>
+						<xsd:enumeration value="or (but not both)"/>
+						<xsd:enumeration value="or (or both)"/>
+						<xsd:enumeration value="therefore"/>
+						<xsd:enumeration value="is temporally related to"/>
+						<xsd:enumeration value="is before"/>
+						<xsd:enumeration value="is after"/>
+						<xsd:enumeration value="meets"/>
+						<xsd:enumeration value="is met by"/>
+						<xsd:enumeration value="overlaps with"/>
+						<xsd:enumeration value="is overlapped by"/>
+						<xsd:enumeration value="starts"/>
+						<xsd:enumeration value="is started by"/>
+						<xsd:enumeration value="is during"/>
+						<xsd:enumeration value="contains"/>
+						<xsd:enumeration value="ends"/>
+						<xsd:enumeration value="is ended by"/>
+						<xsd:enumeration value="equals"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+				<!-- Any other user defined constructs -->
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string"/>
+				</xsd:simpleType>
+			</xsd:union>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="reason" type="xsd:string"/>
+	<xsd:element name="units">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="unit" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="unit">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="left_statements" minOccurs="0"/>
+				<xsd:element ref="relation" minOccurs="0"/>
+				<xsd:element ref="right_statements" minOccurs="0"/>
+				<xsd:element ref="qualifier" minOccurs="0"/>
+				<xsd:element ref="reason" minOccurs="0"/>
+				<xsd:element ref="source_id" minOccurs="0"/>
+				<xsd:element ref="source_reliability" minOccurs="0"/>
+				<xsd:element ref="reliability_reason_id" minOccurs="0"/>
+				<xsd:element ref="source_credibility" minOccurs="0"/>
+				<xsd:element ref="credibility_reason_id" minOccurs="0"/>
+				<xsd:element ref="subunits" minOccurs="0"/>
+			</xsd:all>
+			<xsd:attribute name="ID" type="xsd:string" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="source_reliability">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:enumeration value="completely reliable (A)"/>
+				<xsd:enumeration value="fairly reliable (C)"/>
+				<xsd:enumeration value="usually reliable (B)"/>
+				<xsd:enumeration value="not usually reliable (D)"/>
+				<xsd:enumeration value="unreliable (E)"/>
+				<xsd:enumeration value="not possible to judge (F)"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="reliability_reason_id"/>
+	<xsd:element name="source_credibility">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:enumeration value="confirmed by other sources"/>
+				<xsd:enumeration value="probably true"/>
+				<xsd:enumeration value="possible true"/>
+				<xsd:enumeration value="doubtfully true"/>
+				<xsd:enumeration value="improbable"/>
+				<xsd:enumeration value="not possible to judge"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="credibility_reason_id"/>
+	<xsd:element name="subunits">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="unit" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

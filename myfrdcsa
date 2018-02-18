@@ -1,0 +1,40 @@
+#!/usr/bin/perl -w
+
+# agentify this
+
+my $systems = "systems.dat";
+my $OUT;
+chdir "/home/jasayne/frdcsa/source/myfrdcsa";
+open(OUT,">>$systems") or die "Can't open";
+
+use Manager::Dialog qw( QueryUser Choose Message );
+
+foreach $arg (@ARGV) {
+  my $class;
+  if (IsURL($arg)) {
+    Message(Message => $arg);
+    $class = Choose(qw (Project CodeBase Release MetaSite));
+    print OUT "<item>\n\t<class>$class</class>\n\t<url>$arg</url>\n</item>\n";
+  }
+}
+
+sub IsURL {
+  my $candidate = shift;
+  if ($candidate =~ /\s*^(ht|f)tp:\/\/\S+/) {
+    return 1;
+  }
+  return 0;
+}
+
+sub MostWantedPackages {
+    # The Most Wanted Packages are automatically computed from FRDCSA goals.
+    
+}
+
+sub PackagesInProgress {
+    
+}
+
+sub CompletedPackages {
+    
+}

@@ -1,0 +1,110 @@
+#!/usr/bin/perl -w
+
+# write the software that logs in, grabs git diffs of game, brings
+# them back to ai, and updates the local gits with them
+
+use PerlLib::SwissArmyKnife;
+
+use Rex;
+use Rex::Commands::Run;
+use Rex::Commands::Fs;
+use Rex::Commands::Download;
+
+my $password = QueryUser('Password?: ');
+
+foreach my $dir ('/var/lib/myfrdcsa/codebases/minor', '/var/lib/myfrdcsa/codebases/releases') {
+  ProcessDir
+    (
+     Server => 'game.frdcsa.org',
+     Dir => $dir,
+     Password => $password,
+    );
+}
+
+sub ProcessDir {
+  my (%args) = @_;
+  my $server = $args{Server};
+  my $dir = $args{Dir};
+  my $password = $args{Password};
+  my $patchesdir = '/var/lib/myfrdcsa/codebases/internal/myfrdcsa/data-git/patches';
+
+  my $basename = basename($dir);
+  $basename =~ s/[\W]+/_/sg;
+
+  my $res0 = `cd $dir && git log -n 1`;
+  my $data0 = GetData(Res => $res0);
+
+  Rex::connect
+      (
+       server    => $server,
+       user      => 'andrewdo',
+       password   => $password,
+      );
+
+  # FIXME: check that everything has been committed on game as required
+
+  # my $res1 = run 'cd /var/lib/myfrdcsa/codebases/minor && git add .';
+  # print Dumper({Res1 => $res1});
+  # my $res2 = run 'cd /var/lib/myfrdcsa/codebases/minor && git commit .';
+  # print Dumper({Res2 => $res2});
+
+  my $res3 = run 'cd '.shell_quote($dir).' && git log -n 1';
+  # print Dumper({Res3 => $res3});
+
+  my $data3 = GetData(Res => $res3);
+
+  print Dumper
+    ({
+      Data0 => $data0,
+      Data3 => $data3,
+     });
+
+  my $datetimestamp = DateTimeStamp();
+  if (exists $data0->{Revision} and RevisionP(Item => $data0->{Revision})) {
+    if (exists $data3->{Revision} and RevisionP(Item => $data3->{Revision})) {
+      my $patchfile = '/tmp/'.$basename.'-'.$datetimestamp.'-'.$data0->{Revision}.'-'.$data3->{Revision}.'.patch';
+      my $command = 'cd '.shell_quote($dir).' && git diff '.$data0->{Revision}.' '.$data3->{Revision}.
+	' > '.$patchfile;
+      run $command;
+      # now, try to scp over the patchfile
+      download($patchfile, $patchfile);
+      system 'mv '.shell_quote($patchfile).' '.shell_quote($patchesdir);
+      my $basenameofpatchfile = basename($patchfile);
+      my $patchfilename = ConcatDir($patchesdir, $basenameofpatchfile);
+      my $command = 'cd '.shell_quote($dir).' && patch -p1 < '.shell_quote($patchfilename);
+      ApproveCommands(Commands => [$command]);
+    }
+  }
+}
+
+
+sub GetData {
+  my (%args) = @_;
+  if ($args{Res} =~ /^.*?commit .*?([0-9a-f]+).*?$/m) {
+    my $revisionnumber = $1;
+    print "Revision: ".$revisionnumber."\n";
+    return {
+	    Revision => $revisionnumber,
+	   };
+  }
+  return {};
+}
+
+sub RevisionP {
+  my (%args) = @_;
+  return (($args{Item} =~ /^[0-9a-f]+$/) and
+	  (length($args{Item}) == length('7e385ab05cfe1c28e327a8ebda4e06a13a7b8e68')));
+}
+
+sub RevisionPScrewed {
+  my (%args) = @_;
+  print Dumper(\%args);
+  my $l1 = length($args{Item});
+  my $l2 = length('7e385ab05cfe1c28e327a8ebda4e06a13a7b8e68');
+  print "<$l1,$l2>\n";
+  my $a = ($l1 == $l2);
+  print "$a\n";
+  my $b = ($args{Item} =~ /^[0-9a-f]+$/);
+  print "$b\n";
+  return $a and $b;
+}

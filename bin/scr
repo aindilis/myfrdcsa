@@ -1,0 +1,10 @@
+#!/bin/sh
+
+SCREEN_NAME=`screen -list | grep $1 | awk '{print $1}'`
+if [ "$SCREEN_NAME" != "" ]; then
+    echo screen -x $SCREEN_NAME
+    screen -x $SCREEN_NAME
+else
+    echo screen -S $@
+    screen -S $@
+fi

@@ -1,0 +1,1 @@
+sudo rsync -essh -rogtpvz /var/lib/myfrdcsa/ root@pc-accubyte2:/home/frdcsa/

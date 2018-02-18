@@ -1,0 +1,22 @@
+user "andrewdo";
+password "FIXME";
+pass_auth;
+
+group myservers => "game.frdcsa.org";
+
+desc "Get the uptime of all servers";
+task "uptime", group => "myservers", sub {
+  my $output = run "uptime";
+  say $output;
+};
+
+# desc "Start Apache Service";
+# task "start_apache", group => "myservers", sub {
+#     service "apache2" => "start";
+# };
+
+task "git diff", group => "myservers", sub {
+  
+  my $output = run "uptime";
+  say $output;
+};

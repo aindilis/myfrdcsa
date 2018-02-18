@@ -1,0 +1,16 @@
+#!/usr/bin/perl -w
+
+use Data::Dumper;
+use File::Stat;
+
+foreach my $package (@ARGV) {
+  foreach my $line (split /\n/,`dlocate $package:`) {
+    # print "<$line>\n";
+    if ($line =~ /^\S+:\s(.*)/) {
+      my $f = $1;
+      if (-f $f and -x $f) {
+	print $f."\n";
+      }
+    }
+  }
+}

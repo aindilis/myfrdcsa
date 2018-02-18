@@ -1,0 +1,9 @@
+#!/usr/bin/perl -w
+
+# backup system for the MyFRDCSA.
+
+# read in myfrdcsa conf file
+# determine backup locations
+
+# "sudo rsync -essh -rogtpvz /home/jasayne/frdcsa/ root@pc-accubyte2:/home/frdcsa/"
+

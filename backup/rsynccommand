@@ -1,0 +1,1 @@
+sudo rsync -essh -rogtpvz /home/jasayne/frdcsa/ root@pc-accubyte2:/home/frdcsa/

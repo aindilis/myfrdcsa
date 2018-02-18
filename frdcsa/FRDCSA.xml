@@ -1,0 +1,20 @@
+<system>
+  <title>MyFRDCSA</title>
+  <acronym-expansion>
+    My Formalized Research Database: Cluster, Study and Apply
+  </acronym-expansion>
+  <short-description>
+    System for Weak Artificial Intelligence
+  </short-description>
+  <medium-description>
+    The MyFRDCSA system implements our ontology of software, in
+    addition to being a leading project which coordinates other
+    projects.  Its role is mainly conceptual at this point as the key
+    ontology systems are not yet in place.  Currently it uses an
+    OO-Perl architecture which represents projects and systems, and
+    provides functionality that is too general for any of the current
+    subsystems.
+  </medium-description>
+  <long-description>
+  </long-description>
+</system>

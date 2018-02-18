@@ -1,0 +1,17 @@
+#!/usr/bin/perl -w
+
+# Test program to test features of the MyFRDCSA.pm and related modules.
+
+use MyFRDCSA;
+use MyFRDCSA::File qw ( RelativeToPath );
+
+my $myfrdcsa = MyFRDCSA->new();
+print $myfrdcsa->Dirs->{'home'}. "\n";
+print $myfrdcsa->Dirs->{'codebases'}. "\n";
+print $myfrdcsa->Dirs->{'internal codebases'}. "\n";
+
+$a = "ajd/basic";
+$b = "home/ajd/basic/func.html";
+print "$a\n";
+print "$b\n";
+print RelativeToPath($a, $b) ."\n";
